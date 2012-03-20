@@ -10,7 +10,7 @@ This project aims to deliver a set of base classes and example templates that ca
 
 1. Download / clone to a directory on your webserver
 
-2. Rename **inc/config-example.php** to **inc/config.php**
+2. Rename `inc/config-example.php` to `inc/config.php`
 
 3. Edit **inc/config.php** and enter your TourCMS API credentials
 
