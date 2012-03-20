@@ -12,9 +12,9 @@ This project aims to deliver a set of base classes and example templates that ca
 
 2. Rename `inc/config-example.php` to `inc/config.php`
 
-3. Edit **inc/config.php** and enter your TourCMS API credentials
+3. Edit `inc/config.php` and enter your TourCMS API credentials
 
-4. Fire up a browser and point it at **product-list.php**
+4. Fire up a browser and point it at `product-list.php`
 
 ## Configuration
 
@@ -22,7 +22,7 @@ This project aims to deliver a set of base classes and example templates that ca
 
 Enabling pretty URLs is a two step process:
 
-1. Rename .htaccess-example to .htaccess
+1. Rename `.htaccess-example` to `.htaccess`
 
 2. ???
 
