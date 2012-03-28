@@ -1,19 +1,16 @@
 <?php
-$tour_id = (int)$_GET['id'];
-
 // Basic config
-	$doc_root = $_SERVER['DOCUMENT_ROOT']."/scratch/api/tourcms-mustache-php";
-	include($doc_root.'/inc/config.php');
+	include('inc/config.php');
 
-// Create a new Mustache instance
-$m = new Mustache();
+// Process querystring
+	$tour_id = isset($_GET['tour_id']) ? (int)$_GET['id'] : 0;
+	$channel_id = isset($_GET['channel_id']) ? (int)$_GET['channel_id'] : $channel_id;
 
-// Set up our partials
-$partials = array(
-				"top" => file_get_contents($doc_root."/templates/top.mustache"),
-				"bottom" => file_get_contents($doc_root."/templates/bottom.mustache"),
-				"nav" => file_get_contents($doc_root."/templates/nav.mustache")
-			);
+// If we don't have a Tour ID we need to redirect to an error page
+if(!$tour_id) {
+	include($doc_root.'/403.php');
+	exit();
+}
 
 // Set up Tour view
 	include($doc_root.'/views/tour.php');

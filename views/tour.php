@@ -3,7 +3,7 @@
  * Tour view
  *
  * Wrapper for the "Show Tour/Hotel" API call
- * Returns all API accessible information about a particular Tour/Hotel
+ * Returns all API accessible information about a particular Tour/Hotels and adds extra helpers
  * http://www.tourcms.com/support/api/mp/tour_show.php
  *
  */
