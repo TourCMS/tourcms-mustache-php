@@ -2,11 +2,12 @@
 
 {{> nav }}
 	
+	{{! If there was a problem loading the Tour/Hotel from the API }}
 	{{# notok }}
 		<h1>Sorry there has been a problem</h1>
-		
 	{{/ notok }}
 	
+	{{! If the Tour/Hotel was loaded from the API ok }}
 	{{# isok }}
 		{{# tour }}
 			<h1>{{ tour_name }}</h1>
