@@ -1,5 +1,5 @@
 <?php
-$tour_id = 1;
+$tour_id = (int)$_GET['id'];
 
 // Basic config
 	$doc_root = $_SERVER['DOCUMENT_ROOT']."/scratch/api/tourcms-mustache-php";

@@ -9,7 +9,12 @@
  */
  
 	class Tour {
-	
+		/**
+		 * Store the API data retrieved
+		 *
+		 */
+		public $tour;
+		
 		/**
 		 * Constructor
 		 *
@@ -28,70 +33,59 @@
 			if($this->error=="OK") {
 			
 				foreach ($result->tour->children() as $element => $value) { 
-					$this->$element = $value;
+					$this->tour->$element = $value;
 				}
 				
-			}
-			
-			$this->page_title = $this->tour_name;
-			
-			// Generate pretty URL
-			if($this->product_type==1)
-				$temp = "accommodation";
-			elseif($this->product_type==2) 
-				$temp = "transfer";
-			else
-				$temp = "tour";
-			$this->url = get_product_url($this->tour_name, $this->tour_id, $temp);
-			
-			// Store a counter in the images
-			$temp = 1;
-			foreach ($this->images->image as $image) {
-				$image->counter = $temp;
-				$temp++;
-			}
+				$this->page_title = $this->tour->tour_name;
 				
-			// Process each rate
-			// Used if building own API based booking engine or shopping cart
-			// Not required if handing off to standard TourCMS booking engine
-			foreach ($this->new_booking->people_selection->rate as $rate) {
+				// Generate pretty URL
+				if($this->tour->product_type==1)
+					$temp = "accommodation";
+				elseif($this->tour->product_type==2) 
+					$temp = "transport";
+				else
+					$temp = "tour";
+				$this->tour->url = get_product_url($this->tour->tour_name, $this->tour->tour_id, $temp);
 				
-				$temp_label = "";
-				
-				// Process the labels, or set a default
-				(string)$rate->label_1 != "" ? $temp_label = $rate->label_1 : $temp_label = "Number of people";
-				(string)$rate->label_2 != "" ? $temp_label .= " (" . $rate->label_2 . ")" : null;
-				
-				$rate->label = htmlspecialchars($temp_label);
-				
-				// Process the min/max quantities
-				$min = (int)$rate->minimum;
-				$max = (int)$rate->maximum;
-				
-				for($i=$min; $i<=$max; $i++) 
-					$rate->addChild("capacities", $i);
+				// Store a counter in the images
+				$temp = 1;
+				foreach ($this->tour->images->image as $image) {
+					$image->counter = $temp;
+					$temp++;
+				}
 					
+				// Process each rate
+				// Used if building own API based booking engine or shopping cart
+				// Not required if handing off to standard TourCMS booking engine
+				foreach ($this->tour->new_booking->people_selection->rate as $rate) {
+					
+					$temp_label = "";
+					
+					// Process the labels, or set a default
+					(string)$rate->label_1 != "" ? $temp_label = $rate->label_1 : $temp_label = "Number of people";
+					(string)$rate->label_2 != "" ? $temp_label .= " (" . $rate->label_2 . ")" : null;
+					
+					$rate->label = htmlspecialchars($temp_label);
+					
+					// Process the min/max quantities
+					$min = (int)$rate->minimum;
+					$max = (int)$rate->maximum;
+					
+					for($i=$min; $i<=$max; $i++) 
+						$rate->addChild("capacities", $i);
+						
+					
+				}
 				
-			}
-			
-			// Process custom data
-			if(isset($result->custom_fields->field[0])) {
-				foreach ($result->custom_fields->field as $custom_field) {
-					if((string)$custom_field->name=="bullet4")
-						$this->bullet4 = (string)$custom_field->value;
-					elseif((string)$custom_field->name=="starrating")
-							$this->starrating = (string)$custom_field->value." stars";
-					elseif((string)$custom_field->name=="image") {
-						$this->extra_image = (string)$custom_field->value;
-						if($this->extra_image!="") {
-							$dom = new DOMDocument();
-							$dom->loadHTML($this->extra_image);
-							$this->extra_image = $dom->getElementsByTagName('img')->item(0)->getAttribute('src');
-						}
+				// Process custom data
+				if(isset($result->custom_fields->field[0])) {
+					foreach ($result->custom_fields->field as $custom_field) {
+						$this->tour->custom->$custom_field->name = (string)$custom_field->value;
 					}
 				}
-			}
 				
+			}
+			
 		}
 	
 	/*
@@ -103,8 +97,8 @@
 		 *
 		 */
 		public function nl2brLongdesc() {
-			if(isset($this->longdesc))
-				return nl2br($this->longdesc);
+			if(isset($this->tour->longdesc))
+				return nl2br($this->tour->longdesc);
 			else 
 				return "";
 		}
@@ -115,8 +109,8 @@
 		 *
 		 */
 		public function nl2britinerary() {
-			if(isset($this->itinerary))
-				return nl2br($this->itinerary);
+			if(isset($this->tour->itinerary))
+				return nl2br($this->tour->itinerary);
 			else 
 				return "";
 		}
@@ -144,7 +138,7 @@
 		}
 		
 		public function urlisok() {
-			return ($this->tour_url == "??".$this->url);
+			return ($this->tour->tour_url == "??".$this->tour->url);
 		}
 		
 		public function urlisnotok() {
@@ -161,7 +155,7 @@
 		 * @return boolean True if a duration should be specified
 		 */
 		public function needhdur() {
-			$date_type = (string)$this->new_booking->date_selection->date_type;
+			$date_type = (string)$this->tour->new_booking->date_selection->date_type;
 			
 			return $date_type == "DATE_NIGHTS" || "DATE_DAYS";
 		}
@@ -173,7 +167,7 @@
 		 * @return boolean True if a number of nights should be specified
 		 */
 		public function isnights() {
-			return ((string)$this->new_booking->date_selection->date_type == "DATE_NIGHTS");
+			return ((string)$this->tour->new_booking->date_selection->date_type == "DATE_NIGHTS");
 		}
 		
 		/**
@@ -183,7 +177,7 @@
 		 * @return boolean True if a number of dAys should be specified
 		 */
 		public function isdays() {
-			return ((string)$this->new_booking->date_selection->date_type == "DATE_DAYS");
+			return ((string)$this->tour->new_booking->date_selection->date_type == "DATE_DAYS");
 		}
 		
 		/**
@@ -193,8 +187,8 @@
 		 */
 		public function durations() {
 			if($this->needhdur()) {
-				$min = (int)$this->new_booking->date_selection->duration_minimum;
-				$max = (int)$this->new_booking->date_selection->duration_maximum;
+				$min = (int)$this->tour->new_booking->date_selection->duration_minimum;
+				$max = (int)$this->tour->new_booking->date_selection->duration_maximum;
 				
 				$durations = array();
 				for($i=$min; $i<=$max; $i++) {
@@ -222,7 +216,7 @@
 		 * @return boolean True if hotel
 		 */
 		public function ishotel() {
-			return ((int)$this->product_type == 1);
+			return ((int)$this->tour->product_type == 1);
 		}
 		
 		/**
@@ -231,7 +225,7 @@
 		 * @return boolean True if NOT a hotel
 		 */
 		public function nothotel() {
-			return !$this->ishotel();
+			return !$this->tour->ishotel();
 		}
 	
 	/*
