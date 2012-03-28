@@ -1,22 +1,17 @@
-{{! include the top template, could contain a banner / logo perhaps }}
 {{> top }}
 
-{{! include our main site navigation }}
 {{> nav }}
 	
-	{{! If there was a problem loading the Tour/Hotel from the API }}
 	{{# notok }}
 		<h1>Sorry there has been a problem</h1>
 		
 	{{/ notok }}
 	
-	{{! If the Tour/Hotel was loaded from the API ok }}
 	{{# isok }}
-		{{! The actual API data is within the "tour" child in the Tour view }}
 		{{# tour }}
 			<h1>{{ tour_name }}</h1>
+			<p>{{ summary }}</p>
 		{{/ tour }}
 	{{/ isok }}
 	
-{{! include the bottom template, could contain the page footer and JavaScript includes }}
 {{> bottom }}
