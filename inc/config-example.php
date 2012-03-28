@@ -3,23 +3,25 @@
 	include('libraries/tourcms.php');
 	include('functions.php');
 
-	// Base for page titles
+// Base for page titles
 	$page_titles_base = "";
 	
-	// Format for prettifying dates
-	// http://php.net/manual/en/function.date.php
-	$date_format = "l jS M Y";
-	
+// TourCMS API settings
 	$marketplace_account_id = 0;
 	$channel_id = 0;
 	$api_private_key = "";
 	
+// Format for prettifying dates
+// http://php.net/manual/en/function.date.php
+	$date_format = "l jS M Y";
+
+// Create a new TourCMS instance
 	$tourcms = new TourCMS($marketplace_account_id, $api_private_key, "simplexml");
 	
-	// Create a new Mustache instance
-		$m = new Mustache();
+// Create a new Mustache instance
+	$m = new Mustache();
 		
-	// Set up our partials
+// Set up our partials
 		$partials = array(
 						"top" => file_get_contents($doc_root."/templates/top.mustache"),
 						"bottom" => file_get_contents($doc_root."/templates/bottom.mustache"),
