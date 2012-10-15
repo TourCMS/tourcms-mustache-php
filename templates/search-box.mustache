@@ -1,0 +1,134 @@
+{{> top }}
+
+{{> nav }}
+	
+	<div id="searchLeft">
+        <p class="holidaySearch">Holiday Search</p>
+        <p class="titleSearch">Start your search here...</p>
+			<form action="" method="post" name="holidaySelect">
+				<label><input type="radio" name="group_name" value="Tours" id="group_name_1"{{#istoursearch}} checked="checked"{{/istoursearch}}/>&nbsp;&nbsp;Tours</label>
+			 <br />
+			 	<label><input name="group_name" type="radio" id="group_name_0" value="Accommodation"{{#isaccomsearch}} checked="checked"{{/isaccomsearch}}/>&nbsp;&nbsp;Accommodation</label></form>
+          <div id="accommodation_box">
+          
+          <form action="/accommodation/" method="get" name="accommSearch">
+          	<input type="hidden" name="search_type" value="Accommodation" />
+           
+            <p class="titleSearch">Where would you like to stay?</p>
+            
+            <select name="location" class="styled" id="location" style="width: 210px;">
+            {{#accom_locations}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{location}}</option>
+            {{/accom_locations}}</select><br />
+            
+            <select name="accom_type" class="styled" id="accom_type" style="width: 210px;">
+            {{#accomtypes}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{accomtype}}</option>
+            {{/accomtypes}}
+            </select><br />
+            
+            <select name="rooms" class="styled" id="rooms" style="width: 135px;">
+            	<option selected="selected">Number of rooms</option>
+            	<option>1 room</option>
+            	<option>2 rooms</option>
+            	<option>3 rooms</option>
+            	<option>4 rooms</option>
+            </select>
+            
+            <p class="subtitleSearch">What type of holiday?</p>
+            
+            <select name="holiday_type" class="styled" id="holiday_type" style="width: 210px;">
+            {{#holidaytypes}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{holidaytype}}</option>
+            {{/holidaytypes}}
+            </select>
+            
+            <p class="subtitleSearch">When would you like to go?</p>
+            
+            <select name="start_day" class="styled" style="width: 58px;">
+            {{#startdays}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{day}}</option>
+            {{/startdays}}
+            </select><select name="start_month" class="styled" style="width: 58px;">
+            {{#startmonths}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{month}}</option>
+            {{/startmonths}}
+            </select><select name="start_year" class="styled" style="width: 58px;">
+            {{#startyears}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{year}}</option>
+            {{/startyears}}
+             </select><br />
+            
+            <select name="duration" class="styled" id="duration" style="width: 135px;">
+            {{#nights}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{duration}}</option>
+            {{/nights}}</select>
+            <!--p class="subtitleSearch">How flexible are you?</p>
+            <select name="flexibility" class="styled" id="flexibility" style="width: 135px;">
+            {{#flexibilities}}
+            <option {{#selected}}selected="selected"{{/selected}}>{{flexibility}}</option>
+            {{/flexibilities}}</select-->
+            
+            <input type="submit" class="bt" />
+            
+            
+            </form>
+      </div>
+		<div id="excursions_box">
+        <form action="/tours/" method="get" name="excurSearch">
+        <input type="hidden" name="search_type" value="Tours" />
+        <p class="titleSearch">What type of tour?</p>
+            <select name="tour_type" class="styled" id="tour_type" style="width: 210px;">
+           {{#tourtypes}}
+           		<option {{#selected}}selected="selected"{{/selected}}>{{tourtype}}</option>
+           {{/tourtypes}}
+           </select>
+            <p class="subtitleSearch">Where?</p>
+            <select name="location" class="styled" style="width: 210px;">
+            {{#tour_locations}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{location}}</option>
+            {{/tour_locations}}
+            </select>
+        <p class="subtitleSearch">When would you like to go?</p>
+            <select name="start_day" class="styled" style="width: 58px;">
+            
+            {{#startdays}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{day}}</option>
+            {{/startdays}}
+            </select><select name="start_month" class="styled" style="width: 58px;">
+            {{#startmonths}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{month}}</option>
+            {{/startmonths}}
+            </select><select name="start_year" class="styled" style="width: 58px;">
+            {{#startyears}}
+            	<option {{#selected}}selected="selected"{{/selected}}>{{year}}</option>
+            {{/startyears}}
+            
+            </select>
+        <p class="subtitleSearch">How flexible are you?</p>
+            <select name="flexibility" class="styled" id="flexibility" style="width:135px;"
+            {{#flexibilities}}
+            <option {{#selected}}selected="selected"{{/selected}}>{{flexibility}}</option>
+            {{/flexibilities}}
+            </select>
+            
+          <input type="submit" class="bt" />
+            
+            
+        </form>
+      </div>
+                  
+        <script type="text/javascript">
+        	$("#journey_type").change(function() {
+        		var val = $(this).val();
+        		if(val == "One-way journey") {
+        			$("#returnjourney").fadeOut('slow');
+        		} else {
+        			$("#returnjourney").fadeIn('slow');
+        		}
+        	});
+        </script>
+        
+   
+      </div>
+{{> bottom }}

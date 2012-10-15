@@ -3,7 +3,7 @@
 	include('inc/config.php');
 
 // Process querystring
-	$tour_id = isset($_GET['tour_id']) ? (int)$_GET['id'] : 0;
+	$tour_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 	$channel_id = isset($_GET['channel_id']) ? (int)$_GET['channel_id'] : $channel_id;
 
 // If we don't have a Tour ID we need to redirect to an error page

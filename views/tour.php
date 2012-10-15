@@ -80,10 +80,12 @@
 				// Process custom data
 				if(isset($result->custom_fields->field[0])) {
 					foreach ($result->custom_fields->field as $custom_field) {
-						$this->tour->custom->$custom_field->name = (string)$custom_field->value;
+						$field_name = (string)$custom_field->name;
+						$field_value = (string)$custom_field->value;
+						$this->tour->custom->$field_name = $field_value;
 					}
 				}
-				
+
 			}
 			
 		}

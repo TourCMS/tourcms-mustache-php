@@ -27,7 +27,7 @@
 			$tours = array();
 			
 			$result = $tourcms->search_tours($qs, $channel_id);
-			$this->error = (string)$result->error;
+			$this->error = (string)(isset($result->error) ? $result->error : "NOTOK");
 					
 			if($this->error=="OK") {
 				foreach ($result->tour as $tour) { 

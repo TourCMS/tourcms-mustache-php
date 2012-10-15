@@ -1,6 +1,18 @@
-{{> top}}
-	{{> nav}}
-	{{#tours}}
-		{{> tours-single}}
-	{{/tours}}
-{{> bottom}}
+{{! Displays a list of Tours/Hotels }}
+{{> top }}
+
+{{> nav }}
+
+{{! If no Tours/Hotels were found }}
+{{# notok }}
+	<h1>No products found</h1>
+{{/ notok }}
+
+{{! If some Tours/Hotels were found }}
+{{# isok }}
+	{{# tours }}
+			{{> tours-single }}
+	{{/ tours }}
+{{/ isok }}
+	
+{{> bottom }}
